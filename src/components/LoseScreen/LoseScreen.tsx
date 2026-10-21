@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import type { RefObject } from "react";
 import "./LoseScreen.css";
 // import { ClickerContext } from "../../context/ClickerContext";
