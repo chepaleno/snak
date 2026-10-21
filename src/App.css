@@ -1,0 +1,43 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: system-ui, sans-serif;
+  color: var(--text);
+  background: var(--bg);
+}
+
+:root {
+  --bg: #1a1a2e; /* основной фон — тёмно-синий */
+  --board-bg: #16213e; /* фон игрового поля */
+  --cell: #0f3460; /* пустая клетка — чуть светлее */
+  --snake: #4ade80; /* змейка — мягкий зелёный */
+  --snake-head: #22c55e; /* голова — ярче */
+  --food: #ef4444; /* еда — красный */
+  --text: #e5e7eb; /* текст — не чисто белый, а светло-серый */
+}
+
+.backGround {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--bg);
+}
+
+.interface {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 40px;
+}
+
+.snakeGame{
+  color: var(--snake);
+}

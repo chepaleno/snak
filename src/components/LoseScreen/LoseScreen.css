@@ -1,0 +1,83 @@
+.container {
+  position: fixed;
+  z-index: 10;
+  inset: 0;
+  zoom: 2;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  transition: backdrop-filter 0.5s ease;
+  background: rgba(0, 0, 0, 0);
+} /* поверх */
+
+.container.isVisible {
+  backdrop-filter: blur(8px);
+  background: rgba(0, 0, 0, 0.4);
+} /* блюр */
+
+.winDiv {
+  background-color: rgba(26, 26, 46, 0.9);
+  font-size: 10px;
+  line-height: 12px;
+  z-index: 11;
+  display: flex;
+  max-width: 500px;
+  padding: 20px;
+  border-radius: 10px;
+  border-width: 10px;
+  border: 2px solid black;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+
+  opacity: 0;
+  transform: scale(0.9);
+  transition:
+    opacity 0.4s ease,
+    transform 0.4s ease;
+  transition-delay: 0.15s;
+} /* задний фон */
+
+.container.isVisible .winDiv {
+  opacity: 1;
+  transform: scale(1);
+} /* плавное появление */
+
+.autor {
+  align-self: flex-end;
+} /* микро ивашка */
+
+.h2 {
+  color: #ef4444;
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+  text-shadow: 0 0 10px rgba(239, 68, 68, 0.5); /* Неоновое свечение */
+} /* game over */
+
+.p {
+  color: #e5e7eb;
+  font-size: 1.2rem;
+} /* текст */
+
+.LoseButton {
+  margin-top: 12px;
+  padding: 10px 20px;
+  display: flex;
+  z-index: 11;
+  letter-spacing: 1px;
+
+  font-family: "Press Start 2P", system-ui;
+  font-size: 10px;
+  font-weight: 300;
+
+background: linear-gradient(180deg, #4ade80 0%, #16a34a 100%);
+box-shadow: 0 4px 0 #14532d, 0 6px 12px rgba(0, 0, 0, 0.25);
+color: #022c22; /* Темный текст для контраста */
+
+  border: none;
+  border-radius: 999px;
+  cursor: pointer;
+}
