@@ -3,6 +3,19 @@ import "./App.css";
 import Board from "./components/Board/Board";
 import LoseScreen from "./components/LoseScreen/LoseScreen";
 
+const getRandomFood = (snake: [number, number][]): [number, number] => {
+  while (true) {
+    const row = Math.floor(Math.random() * 10);
+    const col = Math.floor(Math.random() * 10);
+
+    const isInSnake = snake.some(([r, c]) => r === row && c === col);
+
+    if (!isInSnake) {
+      return [row, col];
+    }
+  }
+};
+
 function App() {
   // const record = JSON.parse(localStorage.getItem('SnakeRecord') ?? '0')
   // const finRecord = Number(record)
@@ -22,36 +35,35 @@ function App() {
     [5, 4],
     [5, 3],
   ];
-  const [food, setFood] = useState<[number, number]>([
-    Math.floor(Math.random() * 10),
-    Math.floor(Math.random() * 10),
-  ]);
+
+  const [food, setFood] = useState<[number, number]>(getRandomFood(snake));
   const [moving, setMoving] = useState(snake);
   const [record, setRecord] = useState(0);
   const direction = useRef<string>("RIGHT");
+  const lastMovedDirection = useRef<string>("RIGHT");
   useEffect(() => {
     const pressedButton = (e: KeyboardEvent) => {
       if (
         (e.key === "d" || e.key === "D" || e.key === "в" || e.key === "В") &&
-        direction.current !== "LEFT"
+        lastMovedDirection.current !== "LEFT"
       ) {
         direction.current = "RIGHT";
       }
       if (
         (e.key === "s" || e.key === "S" || e.key === "ы" || e.key === "Ы") &&
-        direction.current !== "UP"
+        lastMovedDirection.current !== "UP"
       ) {
         direction.current = "DOWN";
       }
       if (
         (e.key === "a" || e.key === "A" || e.key === "ф" || e.key === "Ф") &&
-        direction.current !== "RIGHT"
+        lastMovedDirection.current !== "RIGHT"
       ) {
         direction.current = "LEFT";
       }
       if (
         (e.key === "w" || e.key === "W" || e.key === "ц" || e.key === "Ц") &&
-        direction.current !== "DOWN"
+        lastMovedDirection.current !== "DOWN"
       ) {
         direction.current = "UP";
       }
@@ -62,12 +74,22 @@ function App() {
       window.removeEventListener("keydown", pressedButton);
     };
   }, []);
+  // let speed = 500;
+  // if (speed > 250) {
+  //   speed = 500 - (moving.length - 3) * 20;
+  // } else {
+  //   speed = 250;
+  // }
+
+  const speed = Math.max(250, 500 - (moving.length - 3) * 20)
+  console.log(speed);
 
   useEffect(() => {
     if (lose) {
       return;
     }
     let timerId = setInterval(() => {
+      lastMovedDirection.current = direction.current;
       setMoving((prev) => {
         const head = prev[0];
 
@@ -79,19 +101,16 @@ function App() {
         if (direction.current === "UP") newHead = [head[0] - 1, head[1]];
 
         if (newHead[0] === food[0] && newHead[1] === food[1]) {
-          setFood([
-            Math.floor(Math.random() * 10),
-            Math.floor(Math.random() * 10),
-          ]);
+          setFood(getRandomFood(prev));
           return [newHead, ...prev];
         } else {
           return [newHead, ...prev.slice(0, -1)];
         }
       });
-    }, 500);
+    }, speed);
 
     return () => clearInterval(timerId);
-  }, [direction, moving]);
+  }, [food, lose]);
 
   useEffect(() => {
     const head = moving[0];
@@ -133,37 +152,6 @@ function App() {
   if (score > record) {
     isMore = true;
   }
-
-  // console.log(score);
-
-  // const addRecord = () => {
-  //   const newRecord = {
-  //     id: Date.now().toString(),
-  //     score: { score },
-  //   };
-  //   setRecord([...record, newRecord]);
-  // };
-
-  // const record = localStorage.getItem("SnakeRecord");
-
-  // console.log(Boolean(record));
-  // const finRec = JSON.parse(record);
-  // let newArr = [];
-  // useEffect(() => {
-  //   if (record) {
-  //     for (let i = 0; i < finRec.length; i++) {
-  //       // console.log(finRec[i].score.score)
-  //       newArr.push(finRec[i].score.score);
-  //       console.log(newArr);
-  //       // newArr.map(obj => parseInt(obj.value))
-  //       // console.log(newArr)
-  //     }
-  //     setAbsoluteRec(Math.max(...newArr));
-  //     console.log(absoluteRec);
-  //   }
-  // }, [lose, record, moving]);
-
-  // console.log(localStorage.getItem("SnakeRecord"))
 
   return (
     <div className="backGround">
