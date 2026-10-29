@@ -1,13 +1,17 @@
+@import url("https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
-
 body {
-  font-family: system-ui, sans-serif;
+  font-family: "Press Start 2P", system-ui;
   color: var(--text);
   background: var(--bg);
+  -webkit-font-smoothing: antialiased; 
+  -moz-osx-font-smoothing: grayscale;
 }
 
 :root {
@@ -35,9 +39,17 @@ body {
   align-items: center;
   flex-direction: column;
   gap: 16px;
-  margin-top: 40px;
 }
 
-.snakeGame{
+.snakeGame {
   color: var(--snake);
+}
+
+.containerGame {
+  display: flex;
+  flex-direction: row;
+  align-items: center; 
+  justify-content: center; 
+  gap: 40px; 
+  padding: 40px 0;
 }

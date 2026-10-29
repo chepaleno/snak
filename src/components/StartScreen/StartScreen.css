@@ -2,132 +2,100 @@
   position: fixed;
   z-index: 10;
   inset: 0;
-
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
   transition: backdrop-filter 0.5s ease;
   background: rgba(0, 0, 0, 0);
-
-   pointer-events: none;
-} /* поверх */
+  pointer-events: none;
+}
 
 .container.isVisible {
   backdrop-filter: blur(8px);
   background: rgba(0, 0, 0, 0.4);
-
   pointer-events: auto;
-} /* блюр */
+}
 
 .winDiv {
   background-color: rgba(26, 26, 46, 0.9);
-  font-size: 10px;
-  line-height: 12px;
   z-index: 11;
-  display: flex;
-  max-width: 500px;
-  padding: 20px;
-  border-radius: 10px;
-  border-width: 10px;
-  border: 2px solid black;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 20px;
-
+  gap: 40px; 
+  padding: 40px 60px; 
+  border-radius: 20px; 
+  border: 4px solid black; 
+  max-width: 900px; 
+  
+  font-size: 20px; 
+  line-height: 24px; 
+  
   opacity: 0;
   transform: scale(0.9);
-  transition:
-    opacity 0.4s ease,
-    transform 0.4s ease;
+  transition: opacity 0.4s ease, transform 0.4s ease;
   transition-delay: 0.15s;
-} /* задний фон */
+}
 
 .container.isVisible .winDiv {
   opacity: 1;
   transform: scale(1);
-} /* плавное появление */
-
-.autor {
-  align-self: flex-end;
-} /* микро ивашка */
+}
 
 .h2 {
   color: #4ade80;
-  font-size: 2.5rem;
-  margin-bottom: 20px;
-  text-shadow: 0 0 10px rgba(68, 239, 85, 0.5); /* Неоновое свечение */
-} /* game over */
+  font-size: 4.5rem; 
+  margin-bottom: 10px;
+  text-shadow: 0 0 15px rgba(68, 239, 85, 0.6); 
+}
 
-.p {
-  color: #e5e7eb;
-  font-size: 1.2rem;
-} /* текст */
-
-.LoseButton {
-  margin-top: 12px;
-  padding: 10px 20px;
-  display: flex;
-  z-index: 11;
-  letter-spacing: 1px;
-
-  font-family: "Press Start 2P", system-ui;
-  font-size: 10px;
-  font-weight: 300;
-
-background: linear-gradient(180deg, #4ade80 0%, #16a34a 100%);
-box-shadow: 0 4px 0 #14532d, 0 6px 12px rgba(0, 0, 0, 0.25);
-color: #022c22; /* Темный текст для контраста */
-
-  border: none;
-  border-radius: 999px;
-  cursor: pointer;
+.autor {
+  align-self: flex-end;
+  font-size: 14px;
+  opacity: 0.8;
 }
 
 .difficulty-group {
   display: flex;
-  gap: 10px;
+  gap: 20px; /* Было 10px */
   margin: 10px 0;
 }
 
 .difficulty-btn {
   background-color: transparent;
-  border: 2px solid #4ade80;
+  border: 4px solid #4ade80; 
   color: #4ade80;
   font-family: "Press Start 2P", system-ui;
-  font-size: 8px; /* Маленький шрифт, как в аркадах */
-  padding: 10px 15px;
-  border-radius: 5px;
+  font-size: 16px; 
+  padding: 15px 25px; 
+  border-radius: 10px; 
   cursor: pointer;
   transition: all 0.2s ease;
 }
 
 .difficulty-btn:hover {
-  background-color: rgba(74, 222, 128, 0.2); /* Полупрозрачный зеленый */
+  background-color: rgba(74, 222, 128, 0.2);
 }
 
 .difficulty-btn.active {
   background-color: #4ade80;
-  color: #1a1a2e; /* Темный текст для контраста */
-  box-shadow: 0 0 15px rgba(74, 222, 128, 0.6); /* Неоновое свечение */
+  color: #1a1a2e;
+  box-shadow: 0 0 20px rgba(74, 222, 128, 0.7);
 }
 
 .StartButton {
-  margin-top: 12px;
-  padding: 12px 24px;
+  margin-top: 10px;
+  padding: 20px 50px; 
   display: flex;
   z-index: 11;
-  letter-spacing: 1px;
-
+  letter-spacing: 2px; 
   font-family: "Press Start 2P", system-ui;
-  font-size: 12px;
+  font-size: 24px; 
   font-weight: 300;
-
   background: linear-gradient(180deg, #4ade80 0%, #16a34a 100%);
-  box-shadow: 0 4px 0 #14532d, 0 6px 12px rgba(0, 0, 0, 0.25);
-  color: #022c22; 
-
+  box-shadow: 0 6px 0 #14532d, 0 10px 20px rgba(0, 0, 0, 0.3);
+  color: #022c22;
   border: none;
   border-radius: 999px;
   cursor: pointer;
@@ -135,6 +103,6 @@ color: #022c22; /* Темный текст для контраста */
 }
 
 .StartButton:active {
-  transform: translateY(4px); /* Эффект нажатия */
+  transform: translateY(6px); 
   box-shadow: 0 0 0 transparent;
 }

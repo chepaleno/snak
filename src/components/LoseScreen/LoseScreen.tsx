@@ -1,6 +1,5 @@
-import type { RefObject } from "react";
+import { useState, type RefObject } from "react";
 import "./LoseScreen.css";
-// import { ClickerContext } from "../../context/ClickerContext";
 
 interface LoseScreenProps {
   lose: boolean;
@@ -8,43 +7,28 @@ interface LoseScreenProps {
   setMoving: (value: [number, number][]) => void;
   direction: RefObject<string>;
   score: number;
-  // addRecord:
+  setRecord: (value: { name: string; score: number }[]) => void;
+  record: { name: string; score: number }[];
+  setGameStart:(value: boolean) => void;
 }
 
 const LoseScreen = (props: LoseScreenProps) => {
-  const { lose, setLose, setMoving, direction, score } = props;
-  // const [record, setRecord] = useState(() => {
-  //   const savedRecord = localStorage.getItem("SnakeRecord");
-  //   if (savedRecord) {
-  //     return JSON.parse(savedRecord);
-  //   }
-  //   return [{ id: Date.now().toString(), score: { score } }];
-  // });
+  const { lose, setLose, setMoving, direction, score, setRecord, record, setGameStart } =
+    props;
+  const [playerName, setPlayerName] = useState("");
 
-  // [
-  //   { id: Date.now().toString(), score: { score } },
-  // ]);
-  // console.log(record);
-  // const [isVisible, setIsVisible] = useState(false);
-  //   const { bossCount, setFreeMod } = useContext(ClickerContext);
-  //   useEffect(() => {
-  //     requestAnimationFrame(() => setIsVisible(true));
-  //   }, []);
-  //   let finalFraza = "крабий батя.";
-  //   if (bossCount >= 3) {
-  //     finalFraza =
-  //       "... а нет, батю ты пустил на крабовый салат.(это было опционально)";
-  //   }
+  const saveRecord = (playerName: string) => {
+    const finalName = playerName ? playerName : "AAA";
+    const newRecord = { name: finalName, score: score };
+    const updatedRecord = [...record, newRecord];
+    const finalRecord = updatedRecord
+      .sort((a, b) => b.score - a.score)
+      .slice(0, 5);
+    setRecord(finalRecord);
+    localStorage.setItem("record", JSON.stringify(finalRecord));
+  };
 
-  // const addRecord = () => {
-  //   const newRecord = {
-  //     id: Date.now().toString(),
-  //     score: { score },
-  //   };
-  //   setRecord([...record, newRecord]);
-  // };
   const restartClick = () => {
-    // addRecord();
     setMoving([
       [5, 5],
       [5, 4],
@@ -54,25 +38,42 @@ const LoseScreen = (props: LoseScreenProps) => {
     direction.current = "RIGHT";
 
     setLose(false);
+    saveRecord(playerName);
+    setPlayerName("");
   };
 
-  // useEffect(() => {
-  //   localStorage.setItem("SnakeRecord", JSON.stringify(record));
-  // }, [lose]);
+  const mainMenuClick = () => {
+    setMoving([
+      [5, 5],
+      [5, 4],
+      [5, 3],
+    ]);
+
+    direction.current = "RIGHT";
+    setLose(false);
+    setGameStart(false)
+    saveRecord(playerName);
+    setPlayerName("");
+  }
 
   return (
     <div className={`container ${lose ? "isVisible" : ""}`}>
-      <div className="winDiv">
-        <h2 className="h2">GAME OVER</h2>
+      <div className="loseDiv">
+        <h2 className="h2lose">GAME OVER</h2>
         <p>Твой счёт: {score}</p>
-        <br />В любом случае спасибо за игру!!!
-        <span className="autor">
-          <br />
-          made by: Микро Ивашка
-        </span>
-        <button className="LoseButton" onClick={restartClick}>
-          RESTART
-        </button>
+        <p className="input-label">Введи имя:</p>
+        <input
+          type="text"
+          className="arcadeInput"
+          maxLength={4}
+          value={playerName}
+          onChange={(e) => setPlayerName(e.target.value.toUpperCase())}
+          placeholder="AAA"
+        />
+        <div className="buttons-group"> 
+            <button className="LoseButton" onClick={restartClick}>RESTART</button>
+            <button className="LoseButtonMenu" onClick={mainMenuClick}>MAIN MENU</button>
+        </div>
       </div>
     </div>
   );
